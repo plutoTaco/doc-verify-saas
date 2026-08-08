@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: doc-verify-backend
+  labels:
+    app: doc-verify-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: doc-verify-backend
+  template:
+    metadata:
+      labels:
+        app: doc-verify-backend
+    spec:
+      containers:
+      - name: spring-boot-backend
+        image: doc-verify-backend:latest
+        imagePullPolicy: IfNotPresent # Crucial: Tells k8s to use your local Docker image
+        ports:
+        - containerPort: 8080
